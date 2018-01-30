@@ -1,6 +1,4 @@
 function setup() {
-  createCanvas(400, 400);
-  background(255);
 
   const makeGrid = (offset, scale, width, height) => {
     let cols = new Array(floor(width / offset)).fill(0);
@@ -81,15 +79,32 @@ function setup() {
     });
   };
 
+  const cnv = createCanvas(500, 500);
+  background(255);
+
   let scale = 0.01;
   let gridSize = 1;
-  let grid = makeGrid(gridSize, scale, width, height);
 
-  let particles = makeParticlesArray(100, gridSize);
+  const regenerate = () => {
+    const seed = floor(random(9999));
+    noiseSeed(seed);
+    console.log(seed);
+    background(255);
+    let grid = makeGrid(gridSize, scale, width, height);
+    let particles = makeParticlesArray(200, gridSize);
 
-  let loop = new Array(500).fill(0);
-  loop.forEach((elem, id) => {
-    showParticles(particles, 1, [96, 144, 223, 50], gridSize);
-    particles = advectParticlesArray(particles, grid, 1);
-  });
+    let loop = new Array(500).fill(0);
+    loop.forEach((elem, id) => {
+      showParticles(particles, 2, [0, 0, 0, 80], gridSize);
+      particles = advectParticlesArray(particles, grid, 1);
+    });
+  }
+  regenerate();
+
+  const btn = select('#regenerate');
+  btn.mouseClicked(regenerate);
+
+  const cnvDiv = select('.canvas');
+  cnv.parent(cnvDiv)
+
 }
