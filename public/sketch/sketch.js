@@ -35,16 +35,16 @@ function setup() {
     };
   };
 
-  const makeParticlesArray = (count, gridSize) => {
-    let cols = floor(width / gridSize);
-    let rows = floor(height / gridSize);
-
+  const makeParticlesArray = (count, grid) => {
+    const cols = grid.length;
+    const rows = grid[0].length;
     return new Array(count)
       .fill(0)
-      .map(elem => makeParticle(floor(random(cols / 2) + cols / 4), floor(random(rows / 2) + cols / 4)));
+      .map(elem => makeParticle(floor(random(cols / 2) + cols / 4), floor(random(rows / 2) + rows / 4)));
   }
 
-  const showParticles = (particles, size, col, offset = 1) => {
+  const showParticles = (particles, grid, size, col) => {
+    const offset = floor(width / grid.length);
     particles.forEach(party => {
       fill(col[0], col[1], col[2], col[3]);
       noStroke();
@@ -79,32 +79,31 @@ function setup() {
     });
   };
 
-  const cnv = createCanvas(500, 500);
-  background(255);
+  const cnv = createCanvas(600, 100);
 
-  let scale = 0.01;
+  let noiseScale = 0.003;
   let gridSize = 1;
 
   const regenerate = () => {
     const seed = floor(random(9999));
     noiseSeed(seed);
-    console.log(seed);
     background(255);
-    let grid = makeGrid(gridSize, scale, width, height);
-    let particles = makeParticlesArray(200, gridSize);
+    let grid = makeGrid(gridSize, noiseScale, width, height);
+    let particles = makeParticlesArray(200, grid);
 
     let loop = new Array(500).fill(0);
     loop.forEach((elem, id) => {
-      showParticles(particles, 2, [0, 0, 0, 80], gridSize);
+      showParticles(particles, grid, 2, [0, 0, 0, 40]);
       particles = advectParticlesArray(particles, grid, 1);
     });
   }
-  regenerate();
 
   const btn = select('#regenerate');
   btn.mouseClicked(regenerate);
 
   const cnvDiv = select('.canvas');
+  cnv.size(btn.width, AUTO);
   cnv.parent(cnvDiv)
+  regenerate();
 
 }

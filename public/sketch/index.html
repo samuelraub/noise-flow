@@ -2,9 +2,9 @@
 <html>
 
 <head>
-  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-  <script src="../p5.min.js"></script>
-  <script src="../addons/p5.dom.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <script src="lib/p5.min.js"></script>
+  <script src="lib/p5.dom.min.js"></script>
   <script src="sketch.js"></script>
   <style type="text/css">
     body {
@@ -14,8 +14,15 @@
 
     #regenerate {
       font-size: 2em;
-      width: 500px;
+      width: 100%;
       border: 3px solid black;
+      box-shadow: 3px 3px black;
+      outline: none;
+    }
+
+    #regenerate:hover {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px black;
     }
 
     .canvas {

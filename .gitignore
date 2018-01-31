@@ -1,5 +1,6 @@
 curl-noise.pdf
-index.html
 index.md
 *.jpg
-
+.firebaserc
+firebase.json
+404.html
