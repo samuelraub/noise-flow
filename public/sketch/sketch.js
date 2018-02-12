@@ -79,9 +79,9 @@ function setup() {
     });
   };
 
-  const cnv = createCanvas(600, 100);
+  const cnv = createCanvas(500, 500);
 
-  let noiseScale = 0.003;
+  let noiseScale = 0.002;
   let gridSize = 1;
 
   const regenerate = () => {
@@ -89,12 +89,12 @@ function setup() {
     noiseSeed(seed);
     background(255);
     let grid = makeGrid(gridSize, noiseScale, width, height);
-    let particles = makeParticlesArray(200, grid);
+    let particles = makeParticlesArray(1000, grid);
 
-    let loop = new Array(500).fill(0);
+    let loop = new Array(1000).fill(0);
     loop.forEach((elem, id) => {
       showParticles(particles, grid, 2, [0, 0, 0, 40]);
-      particles = advectParticlesArray(particles, grid, 1);
+      particles = advectParticlesArray(particles, grid, 5);
     });
   }
 
@@ -102,7 +102,7 @@ function setup() {
   btn.mouseClicked(regenerate);
 
   const cnvDiv = select('.canvas');
-  cnv.size(btn.width, AUTO);
+  // cnv.size(btn.width, AUTO);˚
   cnv.parent(cnvDiv)
   regenerate();
 
